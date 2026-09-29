@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QUIZ CRAFT AI — Unlimited Topic MCQs, Short Questions & Visual AI Generator</title>
+  <meta name="description" content="Generate custom MCQs, short answer questions, flashcards, and AI visual topic cards from any topic or study text instantly with QUIZ CRAFT AI.">
+  
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Glow Canvas Background -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <div class="logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div class="logo-text">
+          <span class="brand-name">QUIZCRAFT <span class="accent-text">AI</span></span>
+          <span class="brand-sub">Visual Exam & Study Generator</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#create" class="nav-link active"><i class="fa-solid fa-wand-magic-sparkles"></i> Generator</a>
+        <a href="#showcase" class="nav-link"><i class="fa-solid fa-layer-group"></i> Featured Topics</a>
+        <a href="#library" class="nav-link" id="navLibraryBtn"><i class="fa-solid fa-folder-open"></i> Saved Quizzes <span class="badge" id="savedCountBadge">0</span></a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-primary" id="quickGenBtn">
+          <i class="fa-solid fa-plus"></i> New Quiz
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Generator Form Section -->
+  <section class="hero-section" id="create">
+    <div class="section-container">
+      <div class="hero-header text-center">
+        <div class="hero-badge"><span class="pulse-dot"></span> Next-Gen AI Quiz & Flashcard Builder</div>
+        <h1 class="hero-title">Generate <span class="gradient-text">MCQs & Short Questions</span> From Any Topic</h1>
+        <p class="hero-subtitle">
+          Type any subject or paste study material to instantly create multiple-choice questions, detailed short answer keys, interactive study flashcards, and AI visual topic illustrations.
+        </p>
+      </div>
+
+      <!-- Generator Card Box -->
+      <div class="generator-box">
+        <div class="gen-box-header">
+          <div class="tab-selectors">
+            <button class="tab-btn active" id="tabTopicMode"><i class="fa-solid fa-lightbulb"></i> Topic / Subject Prompt</button>
+            <button class="tab-btn" id="tabPassageMode"><i class="fa-solid fa-file-lines"></i> Paste Notes / Passage</button>
+          </div>
+          <div class="ai-chip-tag"><i class="fa-solid fa-dice"></i> Dynamic Seed Engine</div>
+        </div>
+
+        <div class="gen-form-body">
+          <!-- Dynamic Variation Guarantee Banner -->
+          <div class="freshness-banner">
+            <i class="fa-solid fa-arrows-rotate fa-spin-hover"></i>
+            <div>
+              <strong>Infinite Variation Active:</strong> Every time you generate, QuizCraft AI creates completely fresh questions, unique conceptual angles, and shuffled answer keys.
+            </div>
+          </div>
+
+          <!-- Input Mode 1: Topic Name -->
+          <div class="input-group" id="groupTopic">
+            <label for="topicInput"><i class="fa-solid fa-heading"></i> Quiz Topic or Subject Name</label>
+            <div class="input-wrapper">
+              <input type="text" id="topicInput" placeholder="e.g. Quantum Physics, Artificial Intelligence, World War II, Cell Biology, Python Data Structures, Cricket, Philosophy..." autocomplete="off">
+              <button class="btn-clear" id="clearTopicBtn" title="Clear"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="popular-chips">
+              <span class="chips-label">Popular Topics:</span>
+              <button class="chip" data-topic="Quantum Physics & Atomic Structure"><i class="fa-solid fa-atom"></i> Quantum Physics</button>
+              <button class="chip" data-topic="Artificial Intelligence & Neural Networks"><i class="fa-solid fa-robot"></i> Neural Networks</button>
+              <button class="chip" data-topic="Ancient Egypt & Pyramid Builders"><i class="fa-solid fa-monument"></i> Ancient Egypt</button>
+              <button class="chip" data-topic="Space Exploration & Solar System"><i class="fa-solid fa-rocket"></i> Space Exploration</button>
+              <button class="chip" data-topic="Human Heart Anatomy & Blood Circulation"><i class="fa-solid fa-heart-pulse"></i> Heart Biology</button>
+              <button class="chip" data-topic="Python Programming & OOP Concepts"><i class="fa-solid fa-code"></i> Python OOP</button>
+            </div>
+          </div>
+
+          <!-- Input Mode 2: Passage Text -->
+          <div class="input-group hidden" id="groupPassage">
+            <label for="passageInput"><i class="fa-solid fa-quote-left"></i> Paste Your Study Notes, Chapter, or Article Text</label>
+            <textarea id="passageInput" rows="5" placeholder="Paste textbook paragraphs, lecture notes, or reference text here... AI will extract core concepts and generate custom MCQs & Short Questions."></textarea>
+          </div>
+
+          <!-- Quiz Configuration Controls -->
+          <div class="config-grid">
+            <div class="config-card">
+              <label for="mcqCountSelect"><i class="fa-solid fa-list-check"></i> MCQs Count</label>
+              <select id="mcqCountSelect">
+                <option value="3">3 Questions (Quick Quiz)</option>
+                <option value="5" selected>5 Questions (Standard Test)</option>
+                <option value="8">8 Questions (Extended Test)</option>
+                <option value="10">10 Questions (Full Exam)</option>
+              </select>
+            </div>
+
+            <div class="config-card">
+              <label for="shortCountSelect"><i class="fa-solid fa-pen-nib"></i> Short Questions Count</label>
+              <select id="shortCountSelect">
+                <option value="2">2 Short Questions</option>
+                <option value="4" selected>4 Short Questions</option>
+                <option value="6">6 Short Questions</option>
+              </select>
+            </div>
+
+            <div class="config-card">
+              <label for="difficultySelect"><i class="fa-solid fa-gauge-high"></i> Difficulty Level</label>
+              <select id="difficultySelect">
+                <option value="Beginner">Beginner / School Level</option>
+                <option value="Intermediate" selected>Intermediate / College</option>
+                <option value="Advanced">Advanced / Expert</option>
+              </select>
+            </div>
+
+            <div class="config-card">
+              <label for="aiEngineSelect"><i class="fa-solid fa-microchip"></i> Generation Engine</label>
+              <select id="aiEngineSelect">
+                <option value="dynamic" selected>⚡ Smart Dynamic Engine (Instant & Varied)</option>
+                <option value="cloud_ai">🤖 Live Cloud AI (Pollinations / LLM)</option>
+              </select>
+            </div>
+
+            <div class="config-card">
+              <label for="visualCardToggle"><i class="fa-solid fa-image"></i> Topic Visual Illustration</label>
+              <div class="toggle-switch-wrapper">
+                <input type="checkbox" id="visualCardToggle" checked>
+                <span class="toggle-label">Generate Visual Card</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-submit-row">
+            <button class="btn btn-primary btn-large glow-btn" id="generateQuizBtn">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Dynamic Quiz
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Pre-Built Topics Showcase -->
+  <section class="showcase-section" id="showcase">
+    <div class="section-container">
+      <div class="section-header">
+        <div>
+          <div class="section-subtitle"><i class="fa-solid fa-fire"></i> Ready to Practice</div>
+          <h2 class="section-title">Featured <span class="gradient-text">AI Visual Quizzes</span></h2>
+        </div>
+        <p class="section-desc">Explore ready-to-test quizzes with AI-generated visual topic cards.</p>
+      </div>
+
+      <div class="showcase-grid" id="showcaseGrid">
+        <!-- Rendered by JavaScript using generated image assets -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Quiz Player Section (Displays when quiz is active) -->
+  <section class="quiz-player-section hidden" id="quizPlayerSection">
+    <div class="section-container">
+      <div class="player-card">
+        <!-- Player Header Bar -->
+        <div class="player-header">
+          <div class="player-title-box">
+            <div class="badge-row">
+              <span class="badge" id="playerDifficultyBadge">Intermediate</span>
+              <span class="badge badge-seed" id="playerSeedBadge"><i class="fa-solid fa-shuffle"></i> Variant #1084</span>
+              <span class="badge badge-freshness" id="playerFreshBadge"><i class="fa-solid fa-sparkles"></i> Fresh Variation</span>
+            </div>
+            <h2 id="playerTopicTitle">Quantum Physics & Atomic Structure</h2>
+          </div>
+          
+          <div class="player-meta-bar">
+            <div class="meta-item"><i class="fa-solid fa-clock"></i> Time: <span id="quizTimer">00:00</span></div>
+            <div class="meta-item"><i class="fa-solid fa-bullseye"></i> Score: <span id="quizScoreText">0 / 0</span></div>
+            <div class="player-actions">
+              <button class="btn btn-primary btn-sm" id="btnRegenerateHeader" title="Generate brand new questions for this topic"><i class="fa-solid fa-arrows-rotate"></i> New Questions</button>
+              <button class="btn btn-outline btn-sm" id="btnFlashcardMode"><i class="fa-solid fa-layer-group"></i> Flashcards Mode</button>
+              <button class="btn btn-outline btn-sm" id="btnPrintQuiz"><i class="fa-solid fa-print"></i> Print / Export</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic Visual Image Banner -->
+        <div class="quiz-visual-banner" id="quizVisualBanner">
+          <img id="quizVisualImg" src="assets/images/quantum.jpg" alt="Topic Visual Illustration">
+          <canvas id="quizVisualCanvas" class="quiz-visual-canvas hidden"></canvas>
+          <div class="visual-overlay">
+            <span class="visual-tag" id="visualTagLabel"><i class="fa-solid fa-image"></i> AI Visual Illustration</span>
+            <span class="visual-subtag" id="visualSeedTag"><i class="fa-solid fa-dice"></i> Fresh Seed</span>
+          </div>
+        </div>
+
+        <!-- Mode Switcher: Test Mode vs Study Answers -->
+        <div class="quiz-mode-nav">
+          <button class="mode-btn active" id="modeBtnMcq"><i class="fa-solid fa-list-check"></i> Part 1: Multiple Choice Questions (MCQs)</button>
+          <button class="mode-btn" id="modeBtnShort"><i class="fa-solid fa-pen-line"></i> Part 2: Short Answer Questions</button>
+        </div>
+
+        <!-- Part 1: MCQs Container -->
+        <div class="quiz-part-container" id="mcqPartContainer">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Part 2: Short Questions Container -->
+        <div class="quiz-part-container hidden" id="shortPartContainer">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Finish / Score Summary View -->
+        <div class="quiz-result-card hidden" id="quizResultCard">
+          <div class="result-badge-icon"><i class="fa-solid fa-trophy"></i></div>
+          <h2 class="result-title">Quiz Completed!</h2>
+          <p class="result-subtitle" id="resultSubtitle">Great job mastering this topic.</p>
+
+          <div class="result-stats-grid">
+            <div class="result-stat-box">
+              <span class="res-val" id="resFinalScore">4 / 5</span>
+              <span class="res-lbl">MCQ Score</span>
+            </div>
+            <div class="result-stat-box">
+              <span class="res-val" id="resAccuracy">80%</span>
+              <span class="res-lbl">Accuracy</span>
+            </div>
+            <div class="result-stat-box">
+              <span class="res-val" id="resTimeTaken">01:45</span>
+              <span class="res-lbl">Time Taken</span>
+            </div>
+          </div>
+
+          <div class="result-actions">
+            <button class="btn btn-outline" id="btnRetakeQuiz"><i class="fa-solid fa-rotate-left"></i> Retake Same Quiz</button>
+            <button class="btn btn-primary glow-btn" id="btnFreshQuizSameTopic"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Fresh Quiz (Same Topic)</button>
+            <button class="btn btn-outline" id="btnSaveQuiz"><i class="fa-solid fa-bookmark"></i> Save to My Library</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flashcards Interactive Modal -->
+  <div class="modal-backdrop" id="flashcardModal">
+    <div class="modal-container modal-flashcard">
+      <button class="modal-close-btn" id="closeFlashcardBtn"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="flashcard-header text-center">
+        <h3><i class="fa-solid fa-layer-group accent-text"></i> Interactive Study Flashcards</h3>
+        <p class="flashcard-counter">Card <span id="fcCurrentIndex">1</span> of <span id="fcTotalIndex">5</span></p>
+      </div>
+
+      <div class="flashcard-scene" id="flashcardScene">
+        <div class="flashcard-inner" id="flashcardInner">
+          <!-- Front Side -->
+          <div class="flashcard-face flashcard-front">
+            <div class="fc-type-badge">QUESTION</div>
+            <p class="fc-text" id="fcFrontText">Question loading...</p>
+            <span class="fc-hint"><i class="fa-solid fa-rotate"></i> Click to flip answer</span>
+          </div>
+
+          <!-- Back Side -->
+          <div class="flashcard-face flashcard-back">
+            <div class="fc-type-badge fc-answer-badge">ANSWER & EXPLANATION</div>
+            <p class="fc-text fc-answer-text" id="fcBackAnswer">Answer loading...</p>
+            <p class="fc-explanation" id="fcBackExplanation">Explanation loading...</p>
+            <span class="fc-hint"><i class="fa-solid fa-rotate"></i> Click to flip question</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-controls">
+        <button class="btn btn-outline" id="fcPrevBtn"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+        <button class="btn btn-primary" id="fcFlipBtn"><i class="fa-solid fa-arrows-rotate"></i> Flip Card</button>
+        <button class="btn btn-outline" id="fcNextBtn">Next <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved Quizzes Drawer -->
+  <div class="drawer-backdrop" id="libraryDrawerBackdrop">
+    <div class="drawer-container">
+      <div class="drawer-header">
+        <h3><i class="fa-solid fa-folder-open accent-text"></i> Saved Quiz Library</h3>
+        <button class="btn-icon" id="closeLibraryBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="drawer-body" id="libraryBody">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="section-container text-center">
+      <div class="footer-logo">
+        <i class="fa-solid fa-brain"></i> QUIZCRAFT <span class="accent-text">AI</span>
+      </div>
+      <p class="footer-desc">AI-powered Quiz, MCQ & Short Question Generator created with Antigravity IDE.</p>
+      <p class="copyright">&copy; 2026 QUIZCRAFT AI. Designed for visual study and assessment excellence.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
